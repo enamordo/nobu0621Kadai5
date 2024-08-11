@@ -44,7 +44,6 @@ struct ContentView: View {
             }
             HStack {
                 Label(String(result), systemImage: "")
-                    .labelStyle(.titleOnly)
             }
             Spacer()
         }
