@@ -63,15 +63,21 @@ struct ContentView: View {
             showAlert = true
             return
         }
+        
+        /*
+        割られる数と割る数に値があることが確定した後、
+        入力値前後のスペースを除去し、数値に変換
+        */
+        let number1 = Float(inputNumber1.trimmingCharacters(in: .whitespaces)) ?? 0
+        let number2 = Float(inputNumber2.trimmingCharacters(in: .whitespaces)) ?? 0
+        
         // 割る数の0チェック
-        guard inputNumber2 != "0" else {
+        guard number2 != 0 else {
             alertType = .inputNumber2ZeroAlert
             showAlert = true
             return
         }
         
-        let number1 = Float(inputNumber1) ?? 0
-        let number2 = Float(inputNumber2) ?? 0
         result = number1 / number2
     }
 }
