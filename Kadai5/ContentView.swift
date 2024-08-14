@@ -52,33 +52,29 @@ struct ContentView: View {
     
     func alertCheckAndShowLabel() {
         // 割られる数の入力存在チェック
-        guard !inputNumber1.isEmpty else {
+        // スペース除去も実施
+        guard let number1 = Float(inputNumber1.trimmingCharacters(in: .whitespaces)) else {
             alertType = .inputNumber1EmptyAlert
             showAlert = true
             return
         }
+        
         // 割る数の入力存在チェック
-        guard !inputNumber2.isEmpty else {
+        // スペース除去も実施
+        guard  let number2 = Float(inputNumber2.trimmingCharacters(in: .whitespaces)) else {
             alertType = .inputNumber2EmptyAlert
             showAlert = true
             return
         }
         
-        /*
-        割られる数と割る数に値があることが確定した後、
-        入力値前後のスペースを除去し、数値に変換
-        */
-        let number1 = Float(inputNumber1.trimmingCharacters(in: .whitespaces)) ?? 0
-        let number2 = Float(inputNumber2.trimmingCharacters(in: .whitespaces)) ?? 0
-        
         // 割る数の0チェック
-        guard number2 != 0 else {
+        if number2 == 0 {
             alertType = .inputNumber2ZeroAlert
             showAlert = true
             return
+        } else {
+            result = number1 / number2
         }
-        
-        result = number1 / number2
     }
 }
 
