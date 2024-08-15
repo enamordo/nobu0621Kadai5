@@ -71,7 +71,6 @@ struct ContentView: View {
         if number2 == 0 {
             alertType = .inputNumber2ZeroAlert
             showAlert = true
-            return
         } else {
             result = number1 / number2
         }
