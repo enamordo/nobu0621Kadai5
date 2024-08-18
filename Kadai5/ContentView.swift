@@ -11,20 +11,20 @@ struct ContentView: View {
     @State private var inputNumber1: String = ""
     @State private var inputNumber2: String = ""
     @State private var result: Float = 0.0
-    
+
     // アラートの表示状態を監視
     @State private var showAlert = false
     @State var alertType: AlertType = .inputNumber1EmptyAlert
-    
+
     // 子要素のHstackに１つSpacer()があれば、他は親Vstackのalignment: .leadingがあれば位置設定される様子
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 TextField("", text: $inputNumber1)
-                    .nobuStyle()
+                    .roundedTextFieldStyle()
                 Text("÷")
                 TextField("", text: $inputNumber2)
-                    .nobuStyle()
+                    .roundedTextFieldStyle()
                 Spacer()
             }
             HStack {
@@ -32,14 +32,16 @@ struct ContentView: View {
                     Text("計算")
                 })
                 .alert(isPresented: $showAlert) {
-                    switch alertType {
+                    let message: String = switch alertType {
                     case .inputNumber1EmptyAlert:
-                        return Alert(title: Text("課題５"), message: Text("割られる数を入力して下さい"), dismissButton: .default(Text("OK")))
+                        "割られる数を入力して下さい"
                     case .inputNumber2EmptyAlert:
-                        return Alert(title: Text("課題５"), message: Text("割る数を入力して下さい"), dismissButton: .default(Text("OK")))
+                        "割る数を入力して下さい"
                     case .inputNumber2ZeroAlert:
-                        return Alert(title: Text("課題５"), message: Text("割る数には0を入力しないで下さい"), dismissButton: .default(Text("OK")))
+                        "割る数には0を入力しないで下さい"
                     }
+
+                    return Alert(title: Text("課題５"), message: Text(message), dismissButton: .default(Text("OK")))
                 }
             }
             HStack {
@@ -49,7 +51,7 @@ struct ContentView: View {
         }
         .padding()
     }
-    
+
     func alertCheckAndShowLabel() {
         // 割られる数の入力存在チェック
         // スペース除去も実施
@@ -58,7 +60,7 @@ struct ContentView: View {
             showAlert = true
             return
         }
-        
+
         // 割る数の入力存在チェック
         // スペース除去も実施
         guard  let number2 = Float(inputNumber2.trimmingCharacters(in: .whitespaces)) else {
@@ -66,7 +68,7 @@ struct ContentView: View {
             showAlert = true
             return
         }
-        
+
         // 割る数の0チェック
         if number2 == 0 {
             alertType = .inputNumber2ZeroAlert
@@ -78,7 +80,7 @@ struct ContentView: View {
 }
 
 extension TextField {
-    func nobuStyle() -> some View {
+    func roundedTextFieldStyle() -> some View {
         return self
             .textFieldStyle(.roundedBorder)
             .frame(width: 100)
